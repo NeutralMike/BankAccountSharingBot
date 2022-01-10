@@ -19,22 +19,22 @@ def create_tables():
         commands = (
             """
             CREATE TABLE users (
-                chat_id VARCHAR(32) PRIMARY KEY,
-                name VARCHAR(255)
+                chat_id INTEGER PRIMARY KEY,
+                name VARCHAR(255) NOT NULL
             )
             """,
             """
             CREATE TABLE bank_accounts (
-                number VARCHAR(32) PRIMARY KEY,
-                owner VARCHAR(32) REFERENCES users (chat_id)
+                number BIGINT PRIMARY KEY,
+                owner INTEGER NOT NULL REFERENCES users
             )
             """,
             """
             CREATE TABLE transactions (
                 id SERIAL PRIMARY KEY,
-                chat_id VARCHAR(32) REFERENCES users,
-                bank_account VARCHAR(32) REFERENCES bank_accounts (number),
-                amount INT NOT NULL
+                chat_id INTEGER NOT NULL REFERENCES users,
+                bank_account BIGINT NOT NULL REFERENCES bank_accounts,
+                amount INTEGER NOT NULL
             )
             """,
         )
