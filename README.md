@@ -1,3 +1,5 @@
+Telegram bot for managing shared bank account income.
+
 See `requierements.txt`
 
 Create postgresql database
