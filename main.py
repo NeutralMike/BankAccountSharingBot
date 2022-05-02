@@ -123,8 +123,8 @@ def enter_share_code(message):
 
 
 def process_share_code(message):
-    get_share = "SELECT 1 FROM shares WHERE code = %s limit = 1"
-    set_user = "UPDATE shares SET user_id = %s WERE code = %s"
+    get_share = "SELECT * FROM shares WHERE code=%s"
+    set_user = "UPDATE shares SET user_id = %s WHERE code = %s"
 
     with db_connection.cursor() as cursor:
         try:
@@ -154,7 +154,7 @@ def add_transaction(message):
         try:
             cursor.execute(get_account_owner, (message.from_user.id,))
             bank_account = cursor.fetchone()[0]
-        except psycopg2.Error:
+        except:
             cursor.execute("ROLLBACK")
             cursor.execute(get_shared_account, (message.from_user.id, ))
             bank_account = cursor.fetchone()[0]
