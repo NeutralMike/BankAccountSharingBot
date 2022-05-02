@@ -118,6 +118,11 @@ def list_of_bank_accounts(message):
 
 @bot.message_handler(commands=['enter_share_code'])
 def enter_share_code(message):
+    bot.send_message(chat_id=message.chat.id, text=f'Enter sharing code')
+    bot.register_next_step_handler(message, process_share_code)
+
+
+def process_share_code(message):
     get_share = "SELECT 1 FROM shares WHERE code = %s limit = 1"
     set_user = "UPDATE shares SET user_id = %s WERE code = %s"
 
